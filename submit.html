@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>상품 제안서 제출</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; }
+    label { display: block; margin-top: 15px; font-weight: bold; }
+    input, textarea, select { width: 100%; padding: 8px; box-sizing: border-box; }
+    button { margin-top: 20px; padding: 10px 20px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h2>📦 상품 제안서 제출</h2>
+  <form id="submitForm">
+    <label>브랜드명</label>
+    <input name="brand" required>
+
+    <label>상품명</label>
+    <input name="product" required>
+
+    <label>카테고리</label>
+    <input name="category">
+
+    <label>소비자가</label>
+    <input name="price" type="number">
+
+    <label>상품 주요 이미지 URL</label>
+    <input name="image_url">
+
+    <label>상품 상세 설명</label>
+    <textarea name="description" rows="4"></textarea>
+
+    <label>공급사명</label>
+    <input name="company">
+
+    <label>담당자명</label>
+    <input name="manager">
+
+    <label>담당자 연락처</label>
+    <input name="contact">
+
+    <button type="submit">📤 제출하기</button>
+  </form>
+
+  <script>
+    document.getElementById('submitForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = Object.fromEntries(new FormData(e.target));
+
+      fetch("https://script.google.com/macros/s/AKfycbzlvBXGe4KlPydKsuvpXYOEj0xciv7t33fK2A-O3TyAV_5ph_VUFmrtByvUQwSGOQ/exec", {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      })
+      .then(response => response.text())
+      .then(message => alert(message))
+      .catch(error => alert("오류 발생: " + error));
+    });
+  </script>
+</body>
+</html>
